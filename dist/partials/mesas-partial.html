@@ -1,0 +1,9 @@
+<div class="container">
+	<div class="mesasContainer row">
+		<div class="container" ng-repeat="mesa in mesas track by $index" >
+			<div class="mesa waves-effect col s9 btn" ng-click="verMesa($index)">Mesa {{mesa.numero}}</div>
+			<div class="mesa mesa-short waves-effect col s2 btn cuenta attention" ng-click="cerrarMesa($index)"></div>
+			<div class="mesa mesa-short waves-effect col s2 btn ticket" ng-click="verPedidos($index)"></div>
+		</div>
+	</div>
+</div>

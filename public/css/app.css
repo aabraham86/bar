@@ -1,0 +1,210 @@
+body {
+  background: ghostwhite; }
+
+.text-center {
+  text-align: center; }
+
+.mesasContainer .zona {
+  margin: 10px;
+  background: cornflowerblue;
+  height: 60px;
+  padding: 10px; }
+
+.mesasContainer .mesa {
+  margin: 10px 7px 10px 10px;
+  height: 120px;
+  background: cornflowerblue;
+  padding-top: 40px;
+  margin-left: 10px !important; }
+
+.mesasContainer .mesa-short {
+  height: 58px;
+  margin: 10px 0px -6px -3px !important;
+  padding-top: 20px; }
+
+.familiaBtn {
+  margin: 5px;
+  height: 60px;
+  padding-top: 12px !important;
+  background: cornflowerblue; }
+  .familiaBtn.agregar {
+    margin-left: 0; }
+  .familiaBtn.familia1:after, .familiaBtn.familia3:after, .familiaBtn.familia4:after, .familiaBtn.familia5:after, .familiaBtn.familia6:after, .familiaBtn.familia7:after {
+    width: 40px;
+    height: 40px;
+    content: "";
+    position: absolute;
+    left: 40px; }
+
+.familia1 {
+  background: #93cdf1 !important; }
+  .familia1:after {
+    background: url(/public/images/varios.png) no-repeat;
+    background-size: 35px 35px !important;
+    margin: 0; }
+
+.familia3 {
+  background: #93bcf1 !important; }
+  .familia3:after {
+    background: url(/public/images/cafeteria.png) no-repeat;
+    background-size: 35px 35px !important;
+    margin: 0; }
+
+.familia4 {
+  background: #4C99CF !important; }
+  .familia4:after {
+    background: url(/public/images/bebidas.png) no-repeat;
+    background-size: 35px 35px !important;
+    margin: 0; }
+
+.familia5 {
+  background: #4973A5 !important; }
+  .familia5:after {
+    background: url(/public/images/cocina.png) no-repeat;
+    background-size: 40px 27px !important;
+    margin-top: 3px; }
+
+.familia6 {
+  background: #5A5387 !important; }
+  .familia6:after {
+    background: url(/public/images/postres.png) no-repeat;
+    background-size: 33px 40px !important;
+    margin-top: -2px; }
+
+.familia7 {
+  background: #514364 !important; }
+  .familia7:after {
+    background: url(/public/images/menus.png) no-repeat;
+    background-size: 35px 35px !important;
+    margin: 0; }
+
+nav {
+  background: none !important; }
+
+.btn:hover {
+  background: cornflowerblue;
+  opacity: 0.7; }
+
+.btn:focus {
+  background: cornflowerblue;
+  opacity: 0.7; }
+
+.menuBar {
+  background: cornflowerblue;
+  height: 40px; }
+  .menuBar a {
+    color: white;
+    margin-left: 20px; }
+    .menuBar a i {
+      font-size: 40px; }
+  .menuBar span {
+    display: block;
+    float: right;
+    color: white;
+    font-size: 28px; }
+
+.btn {
+  transition: none !important; }
+
+.remove {
+  float: right;
+  width: 28px;
+  height: 30px;
+  padding-left: 10px;
+  border-radius: 3px;
+  padding-top: 4px;
+  margin-top: -2px;
+  color: white;
+  z-index: 9999; }
+
+.attention {
+  background: #f19396 !important; }
+
+.pedidosList li {
+  height: 30px;
+  padding-top: 2px;
+  color: white; }
+  .pedidosList li:first-child {
+    border-radius: 3px 3px 0px 0px; }
+  .pedidosList li:last-child {
+    border-radius: 0px 0px 3px 3px; }
+  .pedidosList li:only-child {
+    border-radius: 3px 3px 3px 3px; }
+  .pedidosList li span.pedidoName {
+    margin-top: 2px;
+    display: block;
+    margin-left: 5px;
+    width: auto;
+    float: left; }
+
+/*.arrow-after:after{
+	content: '\f0da';
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	margin:0px 0px 0px 10px;
+	text-decoration:none;
+}*/
+.ticket:after {
+  background: url(/public/images/ticket.png) no-repeat;
+  background-size: 30px 40px !important;
+  margin-top: -13px;
+  width: 40px;
+  height: 40px;
+  content: "";
+  position: absolute;
+  left: 13px; }
+
+.cuenta:after {
+  background: url(/public/images/cuenta.png) no-repeat;
+  background-size: 35px 35px !important;
+  margin-top: -7px;
+  width: 40px;
+  height: 40px;
+  content: "";
+  position: absolute;
+  left: 10px; }
+
+.or-spacer {
+  margin-top: 28px;
+  margin-left: 0px;
+  width: 330px;
+  position: absolute;
+  opacity: 0.4; }
+  .or-spacer .mask {
+    overflow: hidden;
+    height: 20px; }
+    .or-spacer .mask:after {
+      content: '';
+      display: block;
+      margin: -25px auto 0;
+      width: 100%;
+      height: 25px;
+      border-radius: 125px / 12px;
+      box-shadow: 0 0 8px black; }
+  .or-spacer span {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: -25px;
+    left: 50%;
+    margin-left: -25px;
+    border-radius: 100%;
+    box-shadow: 0 2px 4px #999;
+    background: white; }
+  .or-spacer.reverse {
+    transform: rotate(180deg);
+    margin-top: 8px; }
+
+.sendBtn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  padding-top: 8px;
+  border-radius: 0; }
+
+.mesasViewContainer {
+  margin-bottom: 50px; }

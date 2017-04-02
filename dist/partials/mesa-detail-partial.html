@@ -1,0 +1,36 @@
+<div class="row mesasViewContainer">
+<div class="container">
+
+	<div class="mesasDetailContainer">
+	<h5>Pedidos: <span class="right">Mesa: {{mesaId}}</span></h5>
+	
+		<ul class="pedidosList">
+			<li ng-repeat="pedido in mesas[mesaId].pedidos" ng-class="{'familia{{pedido.familyId}}':pedido.familyId}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="remove attention" ng-click="confirmEliminar($index)">X</span>
+			<div class="or-spacer reverse"><div class="mask"></div></div>
+			<div class="or-spacer"><div class="mask"></div></div>
+			</li> 
+			
+		</ul>
+		<div class="familiaBtn btn agregar" ng-click="showFamilias()">Agregar</div>
+		<div class="familiaBtn btn right" ng-click="enableBuscar()" ng-if="familiaStage">Buscar</div>
+			<div class="input-field col s12" ng-if="buscando" >
+            	<input id="search" type="text" ng-keyup="buscar($event,art)" ng-model="art">
+            	<label for="search">Buscar</label>
+          	</div>
+	</div>
+
+	<div class="familiaBtn col s12 btn arrow-after" ng-click="showRubros(familia.idFamilia)" ng-repeat="familia in familias track by $index" class="familiaBtn" ng-class="{'familia{{familia.idFamilia}}':familia.idFamilia}" ng-if="familiaStage && !buscando">
+		{{familia.NombreFamilia}}
+	</div>
+	<div class="familiaBtn btn col s12 arrow-after" ng-click="showArticulos(rubro.idRubro)" ng-repeat="rubro in rubros track by $index" class="familiaBtn" ng-if="rubrosStage" ng-class="{'familia{{familyId}}':familyId}">
+		{{rubro.NombreRubro}}
+	</div>
+	<div class="familiaBtn btn col s12" ng-click="addToCheck(articulo)" ng-repeat="articulo in articulos track by $index" class="familiaBtn" ng-if="articulosStage" ng-class="{'familia{{familyId}}':familyId}">
+		{{articulo.nombreArt}}
+	</div>
+
+	<div class="sendBtn waves-effect btn" ng-click="submit()">Enviar Pedido</div>
+</div>
+</div>
+
+
