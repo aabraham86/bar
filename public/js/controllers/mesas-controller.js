@@ -149,7 +149,7 @@
 		targetEvent: ev,
 		bindToController: true,
 		clickOutsideToClose:true,
-		fullscreen: true // Only for -xs, -sm breakpoints.
+		fullscreen: true 
 		}).then(function(answer) {
 			$scope.status = 'You said the information was "' + answer + '".';
 		}, function() {
