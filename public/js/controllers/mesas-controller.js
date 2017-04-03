@@ -96,12 +96,11 @@
 			}
 		}
 
-		$scope.confirmEliminar = function(index,ev) {
+		$scope.confirmEliminar = function(index,name,ev) {
 	    // Appending dialog to document.body to cover sidenav in docs app
 	    var confirm = $mdDialog.confirm()
 	          .title('Desea eliminar este pedido?')
-	          .textContent('Si elimina este articulo no será tenido en cuenta a la hora de enviar el pedido.')
-	          .ariaLabel('Lucky day')
+	          .textContent('Si elimina el articulo "'+name+'", no será tenido en cuenta a la hora de enviar el pedido.')
 	          .targetEvent(ev)
 	          .ok('ELIMINAR')
 	          .cancel('Cancelar');

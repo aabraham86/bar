@@ -5,7 +5,7 @@
 	<h5>Pedidos: <span class="right">Mesa: {{mesaId}}</span></h5>
 	
 		<ul class="pedidosList">
-			<li class="col s12" ng-repeat="pedido in mesas[mesaId].pedidos" ng-class="{'familia{{pedido.familyId}}':pedido.familyId}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="remove attention " ng-click="confirmEliminar($index)">X</span>
+			<li class="col s12" ng-repeat="pedido in mesas[mesaId].pedidos" ng-class="{'familia{{pedido.familyId}}':pedido.familyId}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="remove attention " ng-click="confirmEliminar($index, pedido.nombreArt)">X</span>
 			<div class="or-spacer reverse col s9"><div class="mask"></div></div>
 			<div class="or-spacer col s9"><div class="mask"></div></div>
 			</li> 
@@ -18,7 +18,9 @@
             	<label for="search">Buscar</label>
           	</div>
 	</div>
-
+</div>
+</div>
+<div class="row buttons-container">
 	<div class="familiaBtn col s12 btn arrow-after" ng-click="showRubros(familia.idFamilia)" ng-repeat="familia in familias track by $index" class="familiaBtn" ng-class="{'familia{{familia.idFamilia}}':familia.idFamilia}" ng-if="familiaStage && !buscando">
 		{{familia.NombreFamilia}}
 	</div>
@@ -29,8 +31,7 @@
 		{{articulo.nombreArt}}
 	</div>
 
-	<div class="sendBtn waves-effect btn" ng-click="submit()">Enviar Pedido</div>
-</div>
+	<div class="sendBtn waves-effect btn" ng-if="mesas[mesaId].pedidos.length > 0" ng-click="submit()">Enviar Pedido</div>
 </div>
 
 
