@@ -113,9 +113,9 @@ nav {
   padding-left: 10px;
   border-radius: 3px;
   padding-top: 4px;
-  margin-top: -2px;
   color: white;
-  z-index: 9999; }
+  z-index: 9999;
+  margin-right: -10px; }
 
 .attention {
   background: #f19396 !important; }
@@ -168,7 +168,6 @@ nav {
 .or-spacer {
   margin-top: 28px;
   margin-left: 0px;
-  width: 330px;
   position: absolute;
   opacity: 0.4; }
   .or-spacer .mask {

@@ -5,8 +5,8 @@
 		$scope.articulos = [];
 		$scope.rubros = [];
 		$scope.mesaId = $stateParams.id;
-		$scope.buscando = false;
 		$scope.mesas = mesasService.getMesas();
+		$scope.buscando = false;
 		var cachedArticles;
 		$scope.familyId;
 
@@ -131,16 +131,23 @@
 	  };
 
 	  function DialogController($scope, $mdDialog) {
+	  	$scope.mesaId = $stateParams.id;
+		$scope.mesas = mesasService.getMesas();
+
 		$scope.cancel = function() {
 			$mdDialog.hide();
 	    };
 	  }
+
 	  $scope.verPedidos = function(index,ev) {
 		$mdDialog.show({
-		controller: DialogController,
+		locals: {parent: $scope, cancel:function(){ $mdDialog.hide();},mesaId:index},
+		controller: angular.noop,
+		controllerAs: 'ctrl',
 		templateUrl: '/partials/pedidos-dialog.tmpl.html',
 		parent: angular.element(document.body),
 		targetEvent: ev,
+		bindToController: true,
 		clickOutsideToClose:true,
 		fullscreen: true // Only for -xs, -sm breakpoints.
 		}).then(function(answer) {
@@ -152,6 +159,3 @@
 	
 	}]);
 })(bar);
-
-//agregar el controller del dialog
-//agregar el template del dialog

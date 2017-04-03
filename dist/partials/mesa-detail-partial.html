@@ -5,9 +5,9 @@
 	<h5>Pedidos: <span class="right">Mesa: {{mesaId}}</span></h5>
 	
 		<ul class="pedidosList">
-			<li ng-repeat="pedido in mesas[mesaId].pedidos" ng-class="{'familia{{pedido.familyId}}':pedido.familyId}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="remove attention" ng-click="confirmEliminar($index)">X</span>
-			<div class="or-spacer reverse"><div class="mask"></div></div>
-			<div class="or-spacer"><div class="mask"></div></div>
+			<li class="col s12" ng-repeat="pedido in mesas[mesaId].pedidos" ng-class="{'familia{{pedido.familyId}}':pedido.familyId}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="remove attention " ng-click="confirmEliminar($index)">X</span>
+			<div class="or-spacer reverse col s9"><div class="mask"></div></div>
+			<div class="or-spacer col s9"><div class="mask"></div></div>
 			</li> 
 			
 		</ul>
