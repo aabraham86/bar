@@ -1,3 +1,4 @@
+@fa-font-path :   "../font";
 body {
   background: aliceblue; }
 
@@ -123,13 +124,9 @@ nav {
 .pedidosList li {
   height: 30px;
   padding-top: 2px;
-  color: white; }
-  .pedidosList li:first-child {
-    border-radius: 3px 3px 0px 0px; }
-  .pedidosList li:last-child {
-    border-radius: 0px 0px 3px 3px; }
-  .pedidosList li:only-child {
-    border-radius: 3px 3px 3px 3px; }
+  margin-bottom: 1px;
+  color: white;
+  border-radius: 3px 3px 3px 3px; }
   .pedidosList li span.pedidoName {
     margin-top: 5px;
     display: block;
@@ -219,3 +216,33 @@ nav {
     height: 80px;
     margin: 0;
     padding-top: 22px !important; }
+
+.row.backRow {
+  margin: 0; }
+
+.btn.back {
+  background: cornflowerblue;
+  font-size: 12px;
+  padding: 1px 7px 1px 21px; }
+
+.btn.back i {
+  position: absolute;
+  font-size: 13px;
+  margin-left: -14px;
+  margin-top: 1px; }
+
+.familiaBtn span.price {
+  position: absolute;
+  right: 15px; }
+
+.familiaBtn i.fa-caret-right {
+  position: absolute;
+  margin-left: 8px; }
+
+#buscar i {
+  position: absolute;
+  margin-left: -20px;
+  margin-top: -1px; }
+
+#buscar {
+  padding: 20px 8px 20px 27px; }

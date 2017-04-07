@@ -5,14 +5,13 @@ var bar = angular.module('bar', ['ngMaterial', 'ngMessages', 'ngAria', 'ui.route
 
         $urlRouterProvider.otherwise('/');
 
-        $stateProvider.state('menu', {
-		url: '/menu',
-		templateUrl: 'partials/menu-partial.html',
-		controller: 'menuController'
-	})
-
-	.state('home', {
+        $stateProvider.state('login', {
             url: '/',
+            templateUrl: 'partials/login.html',
+            controller: 'LoginController'
+        })
+        .state('home', {
+            url: '/home',
             templateUrl: 'partials/home-partial.html',
             controller: 'HomeController'
         })

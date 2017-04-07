@@ -2,17 +2,19 @@
 <div class="container">
 
 	<div class="mesasDetailContainer">
+	<div class="row backRow">	
+		<div class="btn right back" ng-click="volver()"><i class="fa fa-chevron-left" aria-hidden="true"></i>Volver</div>
+	</div>
 	<h5>Pedidos: <span class="right">Mesa: {{mesaId}}</span></h5>
 	
 		<ul class="pedidosList">
 			<li class="col s12" ng-repeat="pedido in mesas[mesaId].pedidos" ng-class="{'familia{{pedido.familyId}}':pedido.familyId}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="remove attention " ng-click="confirmEliminar($index, pedido.nombreArt)">X</span>
-			<div class="or-spacer reverse col s9"><div class="mask"></div></div>
-			<div class="or-spacer col s9"><div class="mask"></div></div>
+			
 			</li> 
 			
 		</ul>
 		<div class="familiaBtn btn agregar" ng-click="showFamilias()">Agregar</div>
-		<div class="familiaBtn btn right" ng-click="enableBuscar()" ng-if="familiaStage">Buscar</div>
+		<div class="familiaBtn btn right" id="buscar" ng-click="enableBuscar()" ng-if="familiaStage"><i class="fa fa-search" aria-hidden="true"></i>Buscar</div>
 			<div class="input-field col s12" ng-if="buscando" >
             	<input id="search" type="text" ng-keyup="buscar($event,art)" ng-model="art">
             	<label for="search">Buscar</label>
@@ -22,16 +24,16 @@
 </div>
 <div class="row buttons-container">
 	<div class="familiaBtn col s12 btn arrow-after" ng-click="showRubros(familia.idFamilia)" ng-repeat="familia in familias track by $index" class="familiaBtn" ng-class="{'familia{{familia.idFamilia}}':familia.idFamilia}" ng-if="familiaStage && !buscando">
-		{{familia.NombreFamilia}}
+		{{familia.NombreFamilia}} <i class="fa fa-caret-right" aria-hidden="true"></i>
 	</div>
 	<div class="familiaBtn btn col s12 arrow-after" ng-click="showArticulos(rubro.idRubro)" ng-repeat="rubro in rubros track by $index" class="familiaBtn" ng-if="rubrosStage" ng-class="{'familia{{familyId}}':familyId}">
-		{{rubro.NombreRubro}}
+		{{rubro.NombreRubro}} <i class="fa fa-caret-right " aria-hidden="true"></i>
 	</div>
 	<div class="familiaBtn btn col s12" ng-click="addToCheck(articulo)" ng-repeat="articulo in articulos track by $index" class="familiaBtn" ng-if="articulosStage" ng-class="{'familia{{familyId}}':familyId}">
-		{{articulo.nombreArt}}
+		{{articulo.nombreArt}} <span class="price">${{articulo.PrecioNeto}}</span>
 	</div>
 
-	<div class="sendBtn waves-effect btn" ng-if="mesas[mesaId].pedidos.length > 0" ng-click="submit()">Enviar Pedido</div>
+	<div class="sendBtn waves-effect btn" ng-disabled="mesas[mesaId].pedidos.length < 1" ng-click="submit()">Enviar Pedido</div>
 </div>
 
 

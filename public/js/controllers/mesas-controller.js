@@ -1,6 +1,8 @@
 (function(app) {
-	app.controller('MesasController', ['$scope','$state', 'menuService', 'lodash','mesasService','$stateParams', '$mdDialog', function($scope, $state, menuService, _, mesasService, $stateParams, $mdDialog) {
-		
+	app.controller('MesasController', ['$scope','$state', 'menuService', 'lodash','mesasService','$stateParams', '$mdDialog','userService', function($scope, $state, menuService, _, mesasService, $stateParams, $mdDialog, userService) {
+		if(!userService.getLoggedUser()){
+			$state.go('login');
+		}
 		$scope.familias = [];
 		$scope.articulos = [];
 		$scope.rubros = [];
@@ -47,9 +49,13 @@
 		}
 
 		$scope.addToCheck = function(articulo){
+			$scope.familyId  = $scope.familyId ? $scope.familyId : 1; 
 			$scope.mesas = mesasService.setPedidoMesa($scope.mesaId, articulo, $scope.familyId);
 			$scope.articulosStage = false;
 			$("#search").val('');
+			if($scope.buscando){
+				$scope.enableBuscar();
+			}
 		}
 		
 		$scope.submit = function(ev){
@@ -155,6 +161,9 @@
 			$scope.status = 'You cancelled the dialog.';
 		});
 	  };
-	
+
+	 $scope.volver = function(){
+	 	window.history.back();
+	 } 
 	}]);
 })(bar);

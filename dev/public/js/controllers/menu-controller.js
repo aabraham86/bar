@@ -1,7 +1,8 @@
 (function(app) {
-	app.controller('menuController', ['$scope', function($scope) {
-		$scope.hideBar = function () {
-			angular.element('body').trigger('click');
+	app.controller('HomeController', ['$scope','userService','$state', function($scope, userService, $state) {
+		if(!userService.getLoggedUser()){
+			$state.go('login');
 		}
+		$scope.userName = userService.getLoggedUser();
 	}]);
-});
+})(bar);
