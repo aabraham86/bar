@@ -3411,7 +3411,7 @@
 	}, {
 		"id_Articulo" : "310",
 		"nombreArt" : "Liso",
-		"PrecioNeto" : "0",
+		"PrecioNeto" : "10",
 		"id_iva" : "1",
 		"EsMenu" : "False",
 		"ValePor" : "0",
@@ -3455,7 +3455,7 @@
 	}, {
 		"id_Articulo" : "312",
 		"nombreArt" : "mix de quilmes y stella",
-		"PrecioNeto" : "0",
+		"PrecioNeto" : "21",
 		"id_iva" : "1",
 		"EsMenu" : "False",
 		"ValePor" : "0",
@@ -3477,7 +3477,7 @@
 	}, {
 		"id_Articulo" : "319",
 		"nombreArt" : "quilmes 1890",
-		"PrecioNeto" : "0",
+		"PrecioNeto" : "99",
 		"id_iva" : "1",
 		"EsMenu" : "False",
 		"ValePor" : "0",

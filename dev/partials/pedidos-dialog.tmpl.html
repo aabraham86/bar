@@ -14,7 +14,7 @@
       <div class="md-dialog-content">
         <h4>Pedidos mesa {{ctrl.locals.mesaId}}:</h4>
           <ul class="pedidosList">
-            <li class="col s12" ng-repeat="pedido in ctrl.locals.parent.mesas[ctrl.locals.mesaId].pedidos" ng-class="{'familia{{pedido.familyId}}':pedido.familyId}" ><span class="pedidoName">{{pedido.nombreArt}}</span>
+            <li class="col s12" ng-repeat="pedido in ctrl.locals.parent.mesas[ctrl.locals.mesaId].pedidos" ng-class="{'familia{{pedido.familyId}}':pedido.familyId}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="price">${{pedido.PrecioNeto}}</span>
             <div class="or-spacer reverse col s9"><div class="mask"></div></div>
             <div class="or-spacer col s9"><div class="mask"></div></div>
             </li> 

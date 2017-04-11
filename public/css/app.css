@@ -121,6 +121,9 @@ nav {
 .attention {
   background: #f19396 !important; }
 
+.md-dialog-content .pedidosList span.pedidoName {
+  width: calc(100% - 50px); }
+
 .pedidosList li {
   height: 30px;
   padding-top: 2px;
@@ -246,3 +249,9 @@ nav {
 
 #buscar {
   padding: 20px 8px 20px 27px; }
+
+.goBot {
+  position: absolute;
+  bottom: 100px;
+  font-size: 25px;
+  margin-left: 20px; }

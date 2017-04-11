@@ -8,8 +8,17 @@
   		articulosMozo,
   		billetera;
 
+  	var saveToLS = function(){
+		localStorage.setItem('loggedIn', loggedUser);
+	}
+	var getFromLS = function (){
+		loggedUser = localStorage.getItem("loggedIn");
+		return loggedUser;
+	}
+
   	var login = function (data){
   		loggedUser = data.userName;
+  		saveToLS()
 		var defer = $q.defer();
 		$http({
 	      method: 'GET',
@@ -32,6 +41,7 @@
 
 		return {
 	  		login: login,
+	  		getFromLS: getFromLS,
 	  		getLoggedUser: getLoggedUser
     	}; 
   }

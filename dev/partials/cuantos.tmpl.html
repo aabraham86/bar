@@ -1,0 +1,30 @@
+<md-dialog aria-label="Mango (Fruit)">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Cuantos/as desea agergar?</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="ctrl.cancel()">
+          X
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h4>{{ctrl.locals.articulo.nombreArt}}:</h4>
+      <button ng-click="count = count > 1 ? count - 1 : count" ng-init="count=0" class="btn">-</button>
+      <span>{{count}}</span>
+      <button ng-click="count = count + 1" class="btn">+</button>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-click="ctrl.cancel()">
+        Cancelar
+      </md-button>
+      <md-button ng-click="ctrl.answer(count)">
+        Agregar
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

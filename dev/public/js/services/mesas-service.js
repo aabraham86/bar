@@ -1,9 +1,9 @@
 (function() {
 
   angular.module('bar').service('mesasService', mesasService);
-  mesasService.$inject = ['$http','$q'];
+  mesasService.$inject = ['$http','$q','lodash','$rootScope'];
 
-  function mesasService($http, $q) {
+  function mesasService($http, $q, _, $rootScope) {
     var mesas = [],
   	   zonas = [],
       numZonas = 5,
@@ -21,6 +21,7 @@
     selectedZone;
 
 		function resetMesas () {
+      //get from backend
       for (var x = 0;x < numMesas; x++){
         mesas.push(angular.copy(mesasObj));
         mesas[x].numero = x; 
@@ -35,11 +36,13 @@
 			}
 		}
 
-  		var setPedidoMesa = function(mesaIndex, pedido, fId){
-        pedido.familyId = fId;
-        mesas[mesaIndex].pedidos.push(pedido);
+  		var setPedidoMesa = function(mesaIndex, pedido){
+        //save to the backend
+        var total;  
+        mesas[mesaIndex].pedidos = mesas[mesaIndex].pedidos.concat(pedido);
+        total = updateWallet(mesas[mesaIndex].pedidos);
         saveToLS()
-        return getMesas();
+        return total;
       }
       
       var setZona = function(zona){
@@ -71,6 +74,14 @@
   			mesas = JSON.parse(localStorage.getItem("mesas"));
   			console.log(mesas)
   		}
+
+      function updateWallet(pedidos){
+        var total = 0;
+        _.each(pedidos,function(pedido){
+          total = parseInt(total) + parseInt(pedido.PrecioNeto);
+        });
+        return total;
+      }
 
       resetMesas();
   		resetZonas();

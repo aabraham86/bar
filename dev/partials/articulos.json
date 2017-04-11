@@ -3411,7 +3411,7 @@
 	}, {
 		"id_Articulo" : "310",
 		"nombreArt" : "Liso",
-		"PrecioNeto" : "0",
+		"PrecioNeto" : "10",
 		"id_iva" : "1",
 		"EsMenu" : "False",
 		"ValePor" : "0",
@@ -3433,7 +3433,7 @@
 	}, {
 		"id_Articulo" : "311",
 		"nombreArt" : "Jarra Chopp",
-		"PrecioNeto" : "0",
+		"PrecioNeto" : "20",
 		"id_iva" : "1",
 		"EsMenu" : "False",
 		"ValePor" : "0",
@@ -3455,7 +3455,7 @@
 	}, {
 		"id_Articulo" : "312",
 		"nombreArt" : "mix de quilmes y stella",
-		"PrecioNeto" : "0",
+		"PrecioNeto" : "90",
 		"id_iva" : "1",
 		"EsMenu" : "False",
 		"ValePor" : "0",

@@ -3,14 +3,16 @@
 		if(!userService.getLoggedUser()){
 			$state.go('login');
 		}
+
 		$scope.familias = [];
 		$scope.articulos = [];
 		$scope.rubros = [];
 		$scope.mesaId = $stateParams.id;
 		$scope.mesas = mesasService.getMesas();
 		$scope.buscando = false;
-		var cachedArticles;
+		var cachedArticles,longPress;
 		$scope.familyId;
+		$scope.currentPedido = [];
 
 		$scope.verMesa = function(index){
 			$state.go('detail',{id :index});
@@ -48,16 +50,57 @@
 			$scope.articulosStage = true;
 		}
 
-		$scope.addToCheck = function(articulo){
-			$scope.familyId  = $scope.familyId ? $scope.familyId : 1; 
-			$scope.mesas = mesasService.setPedidoMesa($scope.mesaId, articulo, $scope.familyId);
-			$scope.articulosStage = false;
-			$("#search").val('');
-			if($scope.buscando){
-				$scope.enableBuscar();
+		$scope.addToList = function(articulo, count){
+			if(!longPress){
+				articulo.familyId = $scope.familyId ? $scope.familyId : 1;
+				if(count){
+					for(var x = 0; x < count; x++){
+						$scope.currentPedido.push(articulo); 
+					}
+				}else{
+					$scope.currentPedido.push(articulo); 
+				}
+				$scope.articulosStage = false;
+				$("#search").val('');
+				if($scope.buscando){
+					$scope.enableBuscar();
+				}
 			}
 		}
-		
+		$scope.howMany = function(articulo,ev){
+			longPress = true;
+			$scope.cuantos = 0;
+			var cancel = function(){
+				$mdDialog.cancel();
+			}
+
+			var answer = function(answer) {
+      			$mdDialog.hide(answer);
+    		};
+
+			$mdDialog.show({
+				locals: {"articulo": articulo, 
+					cuantos:$scope.cuantos, 
+					cancel:cancel,
+					answer:answer
+				},
+				controller: angular.noop,
+				controllerAs: 'ctrl',
+				templateUrl: '/partials/cuantos.tmpl.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				bindToController: true,
+				clickOutsideToClose:true,
+				fullscreen: true 
+				}).then(function(count) {
+					longPress = false;
+					if(count){
+						$scope.addToList(articulo, count);
+					};
+				}, function() {
+					longPress = false;
+				});
+		}
 		$scope.submit = function(ev){
 			var confirm = $mdDialog.confirm()
 	          .title('Desea enviar pedido?')
@@ -68,6 +111,7 @@
 	          .cancel('Cancelar');
 
 	    $mdDialog.show(confirm).then(function() {
+	    	$scope.$parent.totalBilletera = mesasService.setPedidoMesa($scope.mesaId, $scope.currentPedido);
 			$state.go('mesas',{'zona':mesasService.getZona()});
 	    }, function() {
 	      	return false;
