@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
+var connect = require('gulp-connect');
+
 var browserSync = require('browser-sync').create();
 
 var browserify = require('browserify');
@@ -21,7 +23,11 @@ gulp.task('serve', ['init'], function() {
 
     browserSync.init({
         server: {
-            baseDir: './dev'
+            baseDir: './dev',
+            middleware: function (req, res, next) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                next();
+            }
         }
     });
 

@@ -25,7 +25,7 @@
 	    	var defer = $q.defer();
 		    $http({
 		      method: 'GET',
-		      url: '/partials/articulos.json'
+		      url: 'http://192.168.1.30:50033/mobileServe.asmx/articulos'
 		    }).then(function (success){
 		   		defer.resolve(angular.copy(success.data));
 		    },function (error){

@@ -18,13 +18,14 @@
 
   	var login = function (data){
   		loggedUser = data.userName;
-  		saveToLS()
+  		//saveToLS()
 		var defer = $q.defer();
 		$http({
-	      method: 'GET',
-	      url: '/partials/familias.json'
+	      method: 'POST',
+	      url: ' http://192.168.1.30:50222/mobileServe.asmx/login?pUsr='+data.userName+'&pPwd='+data.password
 	   	}).then(function (success){
-	   		defer.resolve(angular.copy(success.data));
+	   		var respuesta = {billetera:99};
+	   		defer.resolve(angular.copy(respuesta));
 	    },function (error){
 	   		defer.reject({});
 	    });

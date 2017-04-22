@@ -3,6 +3,8 @@
 		if(!userService.getLoggedUser()){
 			$state.go('login');
 		}
+		var zona = mesasService.getZona();
+		var cachedArticles,longPress;
 
 		$scope.familias = [];
 		$scope.articulos = [];
@@ -10,7 +12,6 @@
 		$scope.mesaId = $stateParams.id;
 		$scope.mesas = mesasService.getMesas();
 		$scope.buscando = false;
-		var cachedArticles,longPress;
 		$scope.familyId;
 		$scope.currentPedido = [];
 
@@ -111,7 +112,7 @@
 	          .cancel('Cancelar');
 
 	    $mdDialog.show(confirm).then(function() {
-	    	$scope.$parent.totalBilletera = mesasService.setPedidoMesa($scope.mesaId, $scope.currentPedido);
+	    	mesasService.setPedidoMesa($scope.mesaId, $scope.currentPedido);
 			$state.go('mesas',{'zona':mesasService.getZona()});
 	    }, function() {
 	      	return false;
@@ -163,7 +164,7 @@
 	  };
 
 	  $scope.cerrarMesa = function(index,ev) {
-	    // Appending dialog to document.body to cover sidenav in docs app
+	    
 	    var confirm = $mdDialog.confirm()
 	          .title('Desea cerrar la mesa?')
 	          .textContent('')
@@ -173,7 +174,8 @@
 	          .cancel('Cancelar');
 
 	    $mdDialog.show(confirm).then(function() {
-	      mesasService.cerrarMesa(index);
+	      $scope.$parent.totalBilletera = mesasService.cerrarMesa(index);
+	      $scope.mesas[index].pedidos = [];
 	    }, function() {
 	      return false;
 	    });

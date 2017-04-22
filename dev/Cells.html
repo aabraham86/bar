@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cells</title>
+		<style type="text/css">
+			li.cell1 {background: green;}
+			li.cell0 {background: antiquewhite;}
+			li {display: block;float:left;height: 18px;width:18px;list-style: none;}
+		</style>
+	</head>
+	<body>
+		<ul id="i-want-more-children"></ul>
+		<button type="button" onclick="checkCells()">Celulas</button>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+		<script type="text/javascript">
+
+		//Given a grid with m by n cells, each cell has an initial state live (1) or dead (0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules:
+
+		//Any live cell with fewer than two live neighbors dies, as if caused by under-population.
+		//Any live cell with two or three live neighbors lives on to the next generation.
+		//Any live cell with more than three live neighbors dies, as if by over-population..
+		//Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+
+		//initial state can be set or random.
+			
+			var newGrid = [],
+				grid = [],
+				speed=80, 
+				gridLength=35, 
+				gridHeight=35;
+			
+			/*var grid = [
+					[[0],[0],[0],[0],[0]],
+					[[0],[0],[1],[0],[0]],
+					[[0],[0],[0],[1],[0]],
+					[[0],[1],[0],[0],[0]]
+					];
+			*/
+			function initilizeGrid(){
+				for(var x = 0; x < gridHeight ; x++ ){
+			    	grid[x] = [];
+			        for(var i = 0; i < gridLength; i++ ){
+						grid[x][i]=[Math.floor(Math.random() * 2)];
+			        }
+			    }
+			}
+
+
+			function drawGrid(grid) {
+			  	var parent = $('#i-want-more-children');
+			  	parent.html('');
+			  	var newChild;
+				for(var x = 0; x < grid.length; x++ ){
+			    	for(var i = 0; i < grid[x].length; i++ ){
+					  	parent.append('<li class="cell'+grid[x][i]+'"></li>');
+			        }
+			        parent.append('<br>');
+			    }
+			    parent.append('<br>');
+			}
+
+			initilizeGrid();
+			drawGrid(grid);
+
+			function checkCells(){
+				var stillAlive = 0;
+			    for(var x = 0; x < grid.length; x++ ){
+			    	newGrid[x] = [];
+			        for(var i = 0; i < grid[x].length; i++ ){
+			        	if(grid[x][i] == 1){
+			        		stillAlive = 1;
+			        	}
+						newGrid[x].push(verifyNeighbors(x, i, grid[x][i] == 1) ? 1 : 0); 
+			        }
+			    }
+			    if(stillAlive && JSON.stringify(grid) != JSON.stringify(newGrid)){
+				    grid = newGrid;
+				    newGrid = [];
+					drawGrid(grid);
+				    setTimeout(function(){
+				    checkCells() 
+				    }, speed);
+			    	
+			    }
+			}
+
+			function verifyNeighbors(xIndex,iIndex,alive){
+				var livingNeighbors = 0;
+				
+					if(grid[xIndex-1] != undefined){
+					   	for(var y = 0 ; y < 3; y++ ){
+						   	if(grid[xIndex-1][iIndex-1+y] == 1){
+							   livingNeighbors++;
+						   	}
+					   	}
+					}
+
+				   if(iIndex > 0 && grid[xIndex][iIndex-1] == 1){
+					   livingNeighbors++;
+					}
+				   if(xIndex < grid[xIndex].length && grid[xIndex][iIndex+1] == 1){
+					   livingNeighbors++;
+				   }
+				   if(grid[xIndex+1] != undefined){
+						for(var y = 0 ; y < 3; y++ ){
+						   if(grid[xIndex+1][iIndex-1+y] == 1){
+							   livingNeighbors++;
+						   }
+					   }
+				   }
+				   
+				if(alive){  
+					if(livingNeighbors < 2 ||livingNeighbors > 3 ){
+						return false;
+					} else {
+						return true;
+					}
+				}else{
+					if(livingNeighbors == 3 ){
+						return true;
+					} else {
+						return false;
+					}
+				}
+			}
+
+		</script>
+	</body>
+</html>
+

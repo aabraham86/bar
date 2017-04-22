@@ -3,7 +3,7 @@
 	return {
 		restrict: 'A',
 		link: function($scope, $elm, $attrs) {
-			$elm.bind('mousedown', function(evt) {
+			$elm.bind('touchstart', function(evt) {
 				// Locally scoped variable that will keep track of the long press
 				$scope.longPress = true;
 
@@ -16,10 +16,10 @@
 							$scope.$eval($attrs.onLongPress)
 						});
 					}
-				}, 600);
+				}, 1000);
 			});
 
-			$elm.bind('mouseup', function(evt) {
+			$elm.bind('touchend', function(evt) {
 				// Prevent the onLongPress event from firing
 				$scope.longPress = false;
 				// If there is an on-touch-end function attached to this element, apply it

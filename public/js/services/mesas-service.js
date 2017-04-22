@@ -16,12 +16,14 @@
     },
     zonasObj = {
 			id:'',
-			nombre:''
+			nombre:'',
+      mesas:[]
 		},
     selectedZone;
 
 		function resetMesas () {
       //get from backend
+      mesas = [];
       for (var x = 0;x < numMesas; x++){
         mesas.push(angular.copy(mesasObj));
         mesas[x].numero = x; 
@@ -32,28 +34,29 @@
 			for (var x = 0;x < numZonas; x++){
 				zonas.push(angular.copy(zonasObj));
         zonas[x].id = x; 
-				zonas[x].nombre = 'Zona '+(x+1); 
-			}
+        zonas[x].nombre = 'Zona '+(x+1); 
+				zonas[x].mesas = angular.copy(mesas); 
+      }
+      saveToLS()
 		}
 
   		var setPedidoMesa = function(mesaIndex, pedido){
         //save to the backend
-        var total;  
         mesas[mesaIndex].pedidos = mesas[mesaIndex].pedidos.concat(pedido);
-        total = updateWallet(mesas[mesaIndex].pedidos);
-        saveToLS()
-        return total;
+        zonas[getZona()].mesas = mesas;
+        saveToLS();
       }
       
       var setZona = function(zona){
         selectedZone = zona;
-  		}
+        resetMesas();
+      }
 
-  		var getPedidosMesa = function(mesaIndex){
-  			return mesa[mesaIndex].pedidos;
-  		}
-  		var getMesas = function (){
-        return mesas;
+      var getPedidosMesa = function(mesaIndex){
+        return mesa[mesaIndex].pedidos;
+      }
+      var getMesas = function (){
+        return getFromLS();
       }
       var getZonas = function (){
         return zonas;
@@ -63,16 +66,24 @@
       }
       
       var cerrarMesa = function (mesaNumber){
-        console.log(mesaNumber);
-  			return false;
+        //cerrar mesa
+        var total;  
+        total = updateWallet(mesas[mesaNumber].pedidos);
+        mesas[mesaNumber].pedidos = [];
+        zonas[getZona()].mesas[mesaNumber].pedidos = [];
+        return total;
   		}
   		
   		function saveToLS(){
-			 localStorage.setItem('mesas', JSON.stringify(mesas));
-  		}
-  		function getFromLS(){
-  			mesas = JSON.parse(localStorage.getItem("mesas"));
-  			console.log(mesas)
+			 localStorage.setItem('zonas', JSON.stringify(zonas));
+      }
+      function getFromLS(){
+  			var storedZonas = JSON.parse(localStorage.getItem("zonas"));
+        if(storedZonas){
+  			 return storedZonas[getZona()].mesas || [];
+        } else {
+          return mesas;
+        }
   		}
 
       function updateWallet(pedidos){
