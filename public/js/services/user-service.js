@@ -6,8 +6,8 @@
   function userService($http, $q) {
   	var loggedUser,
   		articulosMozo,
-  		billetera;
-
+  		billetera,
+		configUrl = 'http://192.168.0.101:50222';
   	var saveToLS = function(){
 		localStorage.setItem('loggedIn', loggedUser);
 	}
@@ -18,11 +18,10 @@
 
   	var login = function (data){
   		loggedUser = data.userName;
-  		//saveToLS()
 		var defer = $q.defer();
 		$http({
-	      method: 'POST',
-	      url: ' http://192.168.1.30:50222/mobileServe.asmx/login?pUsr='+data.userName+'&pPwd='+data.password
+	      method: 'GET',
+	      url: configUrl + '/mobileServe.asmx/login?pUsr='+data.userName+'&pPwd='+data.password
 	   	}).then(function (success){
 	   		var respuesta = {billetera:99};
 	   		defer.resolve(angular.copy(respuesta));
@@ -43,6 +42,7 @@
 		return {
 	  		login: login,
 	  		getFromLS: getFromLS,
+	  		saveToLS: saveToLS,
 	  		getLoggedUser: getLoggedUser
     	}; 
   }

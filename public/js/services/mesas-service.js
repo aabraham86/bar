@@ -4,11 +4,13 @@
   mesasService.$inject = ['$http','$q','lodash','$rootScope'];
 
   function mesasService($http, $q, _, $rootScope) {
+    configUrl = 'http://192.168.1.11:50222';
     var mesas = [],
   	   zonas = [],
       numZonas = 5,
   		numMesas = 25,
-		mesasObj = {
+		
+    mesasObj = {
       numero:'',
       pedidos:[],
       mozo:'',
@@ -40,11 +42,17 @@
       saveToLS()
 		}
 
-  		var setPedidoMesa = function(mesaIndex, pedido){
-        //save to the backend
-        mesas[mesaIndex].pedidos = mesas[mesaIndex].pedidos.concat(pedido);
-        zonas[getZona()].mesas = mesas;
-        saveToLS();
+  		var setPedidoMesa = function(mesaIndex, articulo){
+        var defer = $q.defer();
+        $http({
+            method: 'POST',
+            url: configUrl +'/mobileServe.asmx/setArt'
+          }).then(function (success){
+            defer.resolve(success.data);
+          },function (error){
+            defer.reject({});
+          });
+        return defer.promise;
       }
       
       var setZona = function(zona){
@@ -52,21 +60,81 @@
         resetMesas();
       }
 
+      var isHappyActive = function(mesa,art){
+        var defer = $q.defer();
+        $http({
+            method: 'GET',
+            url: configUrl +'/mobileServe.asmx/getHappyHour'
+          }).then(function (success){
+            defer.resolve(success.data);
+          },function (error){
+            defer.reject({});
+          });
+        return defer.promise;      
+      }
+
+      var verifyHappyHour = function(mesaIndex, articulo){
+        var defer = $q.defer();
+        $http({
+            method: 'GET',
+            url: configUrl +'/mobileServe.asmx/GetCantidadHHFree?pMesa='+mesaIndex+'&pArt='+articulo.id_Articulo
+          }).then(function (success){
+            defer.resolve(success.data);
+          },function (error){
+            defer.reject({});
+          });
+        return defer.promise;
+       
+      }
+
       var getPedidosMesa = function(mesaIndex){
         return mesa[mesaIndex].pedidos;
       }
-      var getMesas = function (){
-        return getFromLS();
+
+      var getMesas = function (id){
+         var defer = $q.defer();
+        $http({
+            method: 'GET',
+            url: configUrl +'/mobileServe.asmx/GetSeccionesMesas?pidSeccion='+id
+          }).then(function (success){
+            defer.resolve(success.data);
+          },function (error){
+            defer.reject({});
+          });
+        return defer.promise;  
       }
+
+      var getMesa = function (id){
+         var defer = $q.defer();
+        $http({
+            method: 'GET',
+            url: configUrl +'/mobileServe.asmx/GetMesa?IdMesa='+id
+          }).then(function (success){
+            defer.resolve(success.data);
+          },function (error){
+            defer.reject({});
+          });
+        return defer.promise;  
+      }
+
       var getZonas = function (){
-        return zonas;
+         var defer = $q.defer();
+        $http({
+            method: 'GET',
+            url: configUrl +'/mobileServe.asmx/GetSecciones'
+          }).then(function (success){
+            defer.resolve(success.data);
+          },function (error){
+            defer.reject({});
+          });
+        return defer.promise;  
       }
+
       var getZona = function (){
         return selectedZone;
       }
       
       var cerrarMesa = function (mesaNumber){
-        //cerrar mesa
         var total;  
         total = updateWallet(mesas[mesaNumber].pedidos);
         mesas[mesaNumber].pedidos = [];
@@ -77,14 +145,6 @@
   		function saveToLS(){
 			 localStorage.setItem('zonas', JSON.stringify(zonas));
       }
-      function getFromLS(){
-  			var storedZonas = JSON.parse(localStorage.getItem("zonas"));
-        if(storedZonas){
-  			 return storedZonas[getZona()].mesas || [];
-        } else {
-          return mesas;
-        }
-  		}
 
       function updateWallet(pedidos){
         var total = 0;
@@ -94,14 +154,15 @@
         return total;
       }
 
-      resetMesas();
-  		resetZonas();
-
+    
 	   return {
         getZonas: getZonas,
         getMesas: getMesas,
+        getMesa: getMesa,
         getZona: getZona,
 	  		setZona: setZona,
+        verifyHappyHour: verifyHappyHour,
+        isHappyActive: isHappyActive,
         cerrarMesa: cerrarMesa,
     		setPedidoMesa: setPedidoMesa,
     		getPedidosMesa: getPedidosMesa

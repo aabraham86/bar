@@ -37,7 +37,7 @@ body{
 	}
 
 
-	&.familia1:after, &.familia3:after, &.familia4:after, &.familia5:after, &.familia6:after, &.familia7:after{
+	&.familia1:after, &.familia2:after, &.familia3:after, &.familia4:after, &.familia5:after, &.familia6:after{
 		width: 40px;
 	    height: 40px;
 	    content:"";
@@ -55,7 +55,7 @@ body{
 	    	margin: 0;
 		}
 	}
-	.familia3{
+	.familia2{
 		background:#93bcf1 !important;
 		&:after{
 			background: url(/public/images/cafeteria.png) no-repeat;
@@ -63,7 +63,7 @@ body{
 	    	margin: 0;
 		}
 	}
-	.familia4{
+	.familia3{
 		background:#4C99CF !important;
 		&:after{
 			background: url(/public/images/bebidas.png) no-repeat;
@@ -71,7 +71,7 @@ body{
 	    	margin: 0;
 		}
 	}
-	.familia5{
+	.familia4{
 		background:#4973A5 !important;
 		&:after{
 			background: url(/public/images/cocina.png) no-repeat;
@@ -79,7 +79,7 @@ body{
 		    margin-top: 3px;
 		}
 	}
-	.familia6{
+	.familia5{
 		background:#5A5387 !important;
 		&:after{
 			background: url(/public/images/postres.png) no-repeat;
@@ -87,7 +87,7 @@ body{
 		    margin-top: -2px;
 		}
 	}
-	.familia7{
+	.familia6{
 		background:#514364 !important;
 		&:after{
 			background: url(/public/images/menus.png) no-repeat;
@@ -149,8 +149,11 @@ nav {
 }
 .md-dialog-content {
 	.pedidosList {
-		span.pedidoName {
-			width: calc(100% - 50px);
+		span.price  {
+			margin-top: 5px;
+		    margin-right: 4px;
+		    display: block;
+		    float: right;
 		}
 	}
 }

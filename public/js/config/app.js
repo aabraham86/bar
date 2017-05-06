@@ -28,7 +28,7 @@ var bar = angular.module('bar', ['ngMaterial', 'ngMessages', 'ngAria', 'ui.route
         .state('detail', {
             url: '/detail/{id:[0-9]+}',
             templateUrl: 'partials/mesa-detail-partial.html',
-            controller: 'MesasController'
+            controller: 'MesaDetailController'
         })
         .state('zonas', {
             url: '/zonas',

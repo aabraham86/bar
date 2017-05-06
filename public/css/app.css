@@ -30,7 +30,7 @@ body {
   background: cornflowerblue; }
   .familiaBtn.agregar {
     margin-left: 0; }
-  .familiaBtn.familia1:after, .familiaBtn.familia3:after, .familiaBtn.familia4:after, .familiaBtn.familia5:after, .familiaBtn.familia6:after, .familiaBtn.familia7:after {
+  .familiaBtn.familia1:after, .familiaBtn.familia2:after, .familiaBtn.familia3:after, .familiaBtn.familia4:after, .familiaBtn.familia5:after, .familiaBtn.familia6:after {
     width: 40px;
     height: 40px;
     content: "";
@@ -44,37 +44,37 @@ body {
     background-size: 35px 35px !important;
     margin: 0; }
 
-.familia3 {
+.familia2 {
   background: #93bcf1 !important; }
-  .familia3:after {
+  .familia2:after {
     background: url(/public/images/cafeteria.png) no-repeat;
     background-size: 35px 35px !important;
     margin: 0; }
 
-.familia4 {
+.familia3 {
   background: #4C99CF !important; }
-  .familia4:after {
+  .familia3:after {
     background: url(/public/images/bebidas.png) no-repeat;
     background-size: 35px 41px !important;
     margin: 0; }
 
-.familia5 {
+.familia4 {
   background: #4973A5 !important; }
-  .familia5:after {
+  .familia4:after {
     background: url(/public/images/cocina.png) no-repeat;
     background-size: 40px 27px !important;
     margin-top: 3px; }
 
-.familia6 {
+.familia5 {
   background: #5A5387 !important; }
-  .familia6:after {
+  .familia5:after {
     background: url(/public/images/postres.png) no-repeat;
     background-size: 33px 40px !important;
     margin-top: -2px; }
 
-.familia7 {
+.familia6 {
   background: #514364 !important; }
-  .familia7:after {
+  .familia6:after {
     background: url(/public/images/menus.png) no-repeat;
     background-size: 35px 35px !important;
     margin: 0; }
@@ -121,8 +121,11 @@ nav {
 .attention {
   background: #f19396 !important; }
 
-.md-dialog-content .pedidosList span.pedidoName {
-  width: calc(100% - 50px); }
+.md-dialog-content .pedidosList span.price {
+  margin-top: 5px;
+  margin-right: 4px;
+  display: block;
+  float: right; }
 
 .pedidosList li {
   height: 30px;

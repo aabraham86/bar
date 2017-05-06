@@ -26,6 +26,7 @@
 				//esto me tiene que dar la billetera y las mesas
 				$scope.$parent.usrName = $scope.name;
 				if(resp){
+					userService.saveToLS();
 					//localStorage.setItem('zonas', JSON.stringify(resp.zonas));
 					$scope.$parent.billetera = resp.billetera || 0;
 					$scope.$parent.loggedIn = true;

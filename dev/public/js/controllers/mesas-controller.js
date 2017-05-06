@@ -9,65 +9,32 @@
 		$scope.familias = [];
 		$scope.articulos = [];
 		$scope.rubros = [];
-		$scope.mesaId = $stateParams.id;
-		$scope.mesas = mesasService.getMesas();
+		$scope.mesas = [];
+		$scope.mesaId = $stateParams.zona;
+
+		mesasService.getMesas(parseInt($scope.mesaId)).then(function(response){
+			var tempMesaObj = {
+				Descripcion:response[0].Descripcion,
+				NombreSeccion:response[0].NombreSeccion,
+				id_Seccion:response[0].id_Seccion,
+				id_Mesa:""
+			}
+
+			_.each(response[0].Mesas.split(','),function(elem){
+				tempMesaObj.id_Mesa=elem;
+				$scope.mesas.push(angular.copy(tempMesaObj));
+			})
+			
+		});
 		$scope.buscando = false;
-		$scope.familyId;
-		$scope.currentPedido = [];
+		$scope.currentPedido=[];
 
 		$scope.verMesa = function(index){
 			$state.go('detail',{id :index});
 		}
 		
-		$scope.showFamilias = function(){
-			$scope.articulosStage = false;
-			$scope.rubrosStage = false;
+		
 
-			menuService.getFamilias().then(function(resp){
-				$scope.familias = resp;
-			});
-			$scope.familiaStage = true;
-		}
-		$scope.showRubros = function(familia){
-			$scope.familyId = familia;
-			$scope.familiaStage = false;
-			var filteredData;
-			menuService.getRubros().then(function(resp){
-				filteredData = _.filter(resp, function(obj){return obj.idFamilia == familia});
-				$scope.rubros = filteredData;
-			});
-
-			$scope.rubrosStage = true;
-		}
-		$scope.showArticulos = function(rubro,idFlia){
-			$scope.rubrosStage = false;
-			var filteredArticles;
-			menuService.getArticulos().then(function(resp){
-				filteredArticles = _.filter(resp, function(obj){
-					return obj.idRubro == rubro
-				});
-				$scope.articulos = filteredArticles;
-			});
-			$scope.articulosStage = true;
-		}
-
-		$scope.addToList = function(articulo, count){
-			if(!longPress){
-				articulo.familyId = $scope.familyId ? $scope.familyId : 1;
-				if(count){
-					for(var x = 0; x < count; x++){
-						$scope.currentPedido.push(articulo); 
-					}
-				}else{
-					$scope.currentPedido.push(articulo); 
-				}
-				$scope.articulosStage = false;
-				$("#search").val('');
-				if($scope.buscando){
-					$scope.enableBuscar();
-				}
-			}
-		}
 		$scope.howMany = function(articulo,ev){
 			longPress = true;
 			$scope.cuantos = 0;
@@ -183,7 +150,9 @@
 
 	  function DialogController($scope, $mdDialog) {
 	  	$scope.mesaId = $stateParams.id;
-		$scope.mesas = mesasService.getMesas();
+		mesasService.getMesas().then(function(response){
+			$scope.mesas = response;
+		});
 
 		$scope.cancel = function() {
 			$mdDialog.hide();
@@ -191,21 +160,25 @@
 	  }
 
 	  $scope.verPedidos = function(index,ev) {
-		$mdDialog.show({
-		locals: {parent: $scope, cancel:function(){ $mdDialog.hide();},mesaId:index},
-		controller: angular.noop,
-		controllerAs: 'ctrl',
-		templateUrl: '/partials/pedidos-dialog.tmpl.html',
-		parent: angular.element(document.body),
-		targetEvent: ev,
-		bindToController: true,
-		clickOutsideToClose:true,
-		fullscreen: true 
-		}).then(function(answer) {
-			$scope.status = 'You said the information was "' + answer + '".';
-		}, function() {
-			$scope.status = 'You cancelled the dialog.';
+	  	mesasService.getMesa(index).then(function(response){
+			$scope.actualPedido = response;
+			$mdDialog.show({
+				locals: {parent: $scope, cancel:function(){ $mdDialog.hide();},mesaId:index},
+				controller: angular.noop,
+				controllerAs: 'ctrl',
+				templateUrl: '/partials/pedidos-dialog.tmpl.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				bindToController: true,
+				clickOutsideToClose:true,
+				fullscreen: true 
+				}).then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
 		});
+		
 	  };
 
 	 $scope.volver = function(){

@@ -3,10 +3,12 @@
 		if(!userService.getLoggedUser()){
 			$state.go('login');
 		}
-		$scope.zonas = mesasService.getZonas();
+		mesasService.getZonas().then(function(resp){
+			$scope.zonas = resp;
+		});
 		
 		$scope.verZona = function(id){
-			mesasService.setZona(id);
+			//mesasService.getMesas(id);
 			$state.go('mesas',{"zona":id});
 		}
 

@@ -8,7 +8,7 @@
 	<h5>Pedidos: <span class="right">Mesa: {{mesaId}}</span></h5>
 	
 		<ul class="pedidosList">
-			<li class="col s12" ng-repeat="pedido in currentPedido track by $index" ng-class="{'familia{{pedido.familyId}}':pedido.familyId}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="remove attention " ng-click="confirmEliminar($index, pedido.nombreArt)">X</span>
+			<li class="col s12" ng-repeat="pedido in currentPedido track by $index" ng-class="{'familia{{pedido.idFamilia}}':pedido.idFamilia}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="remove attention " ng-click="confirmEliminar($index, pedido.nombreArt)">X</span>
 			
 			</li> 
 			
@@ -26,10 +26,10 @@
 	<div class="familiaBtn col s12 btn arrow-after" ng-click="showRubros(familia.idFamilia)" ng-repeat="familia in familias track by $index" class="familiaBtn" ng-class="{'familia{{familia.idFamilia}}':familia.idFamilia}" ng-if="familiaStage && !buscando">
 		{{familia.NombreFamilia}} <i class="fa fa-caret-right" aria-hidden="true"></i>
 	</div>
-	<div class="familiaBtn btn col s12 arrow-after" ng-click="showArticulos(rubro.idRubro)" ng-repeat="rubro in rubros track by $index" class="familiaBtn" ng-if="rubrosStage" ng-class="{'familia{{familyId}}':familyId}">
+	<div class="familiaBtn btn col s12 arrow-after" ng-click="showArticulos(rubro.idRubro)" ng-repeat="rubro in rubros track by $index" class="familiaBtn" ng-if="rubrosStage" ng-class="{'familia{{rubro.idFamilia}}':familyId}">
 		{{rubro.NombreRubro}} <i class="fa fa-caret-right " aria-hidden="true"></i>
 	</div>
-	<div class="familiaBtn btn col s12" ng-click="addToList(articulo)" on-long-press="howMany(articulo)" ng-repeat="articulo in articulos track by $index" class="familiaBtn" ng-if="articulosStage" ng-class="{'familia{{familyId}}':familyId}">
+	<div class="familiaBtn btn col s12" ng-click="addToList(articulo)" on-long-press="howMany(articulo)" ng-repeat="articulo in articulos track by $index" class="familiaBtn" ng-if="articulosStage" ng-class="{'familia{{articulo.idFamilia}}':familyId}">
 		{{articulo.nombreArt}} <span class="price">${{articulo.PrecioNeto}}</span>
 	</div>
 
