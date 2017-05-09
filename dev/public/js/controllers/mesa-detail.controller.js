@@ -39,40 +39,46 @@
 		}
 
 		$scope.addToList = function(articulo, count){
-
-			function add(){
-				if(articulo.happyhour || true){
+			var cantidadDisponible = 0;
+			function checkHappy(iteration){
+				if(articulo.happyhour && iteration === 0){
 					if($scope.happyActive){
 						mesasService.verifyHappyHour($scope.mesaId, articulo).then(function(response){
-							if(parseInt(response[0].Cant) > 0 ){
-								console.log("modal");
-								/*
-								if (acepta)
-								articulo.sacaleelhappy
-								else
-								tissi
-								*/
-								$scope.currentPedido.push(articulo); 
-							}else{
-								$scope.currentPedido.push(articulo); 
+							cantidadDisponible = parseInt(response[0].Cant);
+							if(cantidadDisponible > 0 ) {
+								var confirm = $mdDialog.confirm()
+						          .title('Desea restar el articulo del happyhour?')
+						          .textContent('Quedan ' + cantidadDisponible + ' ' + articulo.nombreArt )
+						          .ariaLabel('Lucky day')
+						          .ok('Si')
+						          .cancel('No');
+
+							    $mdDialog.show(confirm).then(function() {
+							    	articulo.removeHappy = true;
+							    	$scope.currentPedido.push(articulo)
+							    }, function() {
+							    	$scope.currentPedido.push(articulo)
+							      	return false;
+							    }); 
+							} else{
+								$scope.currentPedido.push(articulo)
 							}
 						});
-					}else{
-						$scope.currentPedido.push(articulo); 
+					}else {
+						$scope.currentPedido.push(articulo)
 					}
 				}else{
-					$scope.currentPedido.push(articulo); 
+					$scope.currentPedido.push(articulo)
 				}
-				
 			}
 
 			if(!longPress){
 				if(count){
 					for(var x = 0; x < count; x++){
-						add();
+						checkHappy(x);
 					}
 				}else{
-					add() 
+					checkHappy(0);
 				}
 
 				$scope.articulosStage = false;
@@ -127,12 +133,12 @@
 	          .ok('Enviar')
 	          .cancel('Cancelar');
 
-	    $mdDialog.show(confirm).then(function() {
-	    	mesasService.setPedidoMesa($scope.mesaId, $scope.currentPedido);
-			$state.go('mesas',{'zona':mesasService.getZona()});
-	    }, function() {
-	      	return false;
-	    });
+		    $mdDialog.show(confirm).then(function() {
+		    	mesasService.setPedidoMesa($scope.mesaId, $scope.currentPedido);
+				$state.go('mesas',{'zona':mesasService.getZona()});
+		    }, function() {
+		      	return false;
+		    });
 		}
 
 		/*var zona = mesasService.getZona();

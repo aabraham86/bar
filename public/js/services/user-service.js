@@ -7,9 +7,9 @@
   	var loggedUser,
   		articulosMozo,
   		billetera,
-		configUrl = 'http://192.168.0.101:50222';
+		configUrl = 'http://192.168.1.11:50222';
   	var saveToLS = function(){
-		localStorage.setItem('loggedIn', loggedUser);
+		localStorage.setItem('loggedIn', JSON.stringify(loggedUser));
 	}
 	var getFromLS = function (){
 		loggedUser = localStorage.getItem("loggedIn");
@@ -17,14 +17,15 @@
 	}
 
   	var login = function (data){
-  		loggedUser = data.userName;
+  		
 		var defer = $q.defer();
 		$http({
 	      method: 'GET',
 	      url: configUrl + '/mobileServe.asmx/login?pUsr='+data.userName+'&pPwd='+data.password
 	   	}).then(function (success){
-	   		var respuesta = {billetera:99};
-	   		defer.resolve(angular.copy(respuesta));
+	   		//var respuesta = {billetera:99};
+	   		loggedUser = success.data[0];
+	   		defer.resolve(loggedUser);
 	    },function (error){
 	   		defer.reject({});
 	    });

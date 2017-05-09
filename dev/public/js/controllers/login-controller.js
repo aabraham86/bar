@@ -2,11 +2,13 @@
 	app.controller('LoginController', ['$scope','$state','userService','$rootScope', function($scope, $state, userService, $rootScope) {
 		//$scope.$parent.loggedIn = true;
 		var logged = userService.getFromLS();
+		
 		if(logged){
 			$scope.$parent.usrName = logged;
 			$scope.$parent.loggedIn = true;
 			$state.go('home');
 		}
+
 		$scope.validate = function (e, fromPass){
 			var code = e.keyCode || e.which;
 			if(code == 13) {
@@ -28,7 +30,7 @@
 				if(resp){
 					userService.saveToLS();
 					//localStorage.setItem('zonas', JSON.stringify(resp.zonas));
-					$scope.$parent.billetera = resp.billetera || 0;
+					//$scope.$parent.billetera = resp.billetera || 0;
 					$scope.$parent.loggedIn = true;
 					$state.go('home');
 				}

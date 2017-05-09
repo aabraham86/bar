@@ -9,7 +9,6 @@
 	
 		<ul class="pedidosList">
 			<li class="col s12" ng-repeat="pedido in currentPedido track by $index" ng-class="{'familia{{pedido.idFamilia}}':pedido.idFamilia}" ><span class="pedidoName">{{pedido.nombreArt}}</span> <span class="remove attention " ng-click="confirmEliminar($index, pedido.nombreArt)">X</span>
-			
 			</li> 
 			
 		</ul>

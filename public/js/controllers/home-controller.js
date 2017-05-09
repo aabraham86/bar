@@ -3,6 +3,7 @@
 		if(!userService.getLoggedUser()){
 			$state.go('login');
 		}
-		$scope.userName = userService.getLoggedUser();
+		var logged = userService.getLoggedUser();
+		$scope.userName	 = logged ? JSON.parse(logged).NombreCajero : '';
 	}]);
 })(bar);

@@ -1,9 +1,9 @@
 (function() {
 
   angular.module('bar').service('mesasService', mesasService);
-  mesasService.$inject = ['$http','$q','lodash','$rootScope'];
+  mesasService.$inject = ['$http','$q','lodash','$rootScope','userService'];
 
-  function mesasService($http, $q, _, $rootScope) {
+  function mesasService($http, $q, _, $rootScope, userService) {
     configUrl = 'http://192.168.1.11:50222';
     var mesas = [],
   	   zonas = [],
@@ -41,18 +41,36 @@
       }
       saveToLS()
 		}
-
-  		var setPedidoMesa = function(mesaIndex, articulo){
+  		var setPedidoMesa = function(mesaId, articulos){
         var defer = $q.defer();
-        $http({
-            method: 'POST',
-            url: configUrl +'/mobileServe.asmx/setArt'
-          }).then(function (success){
+        var promises = [];
+        var user = JSON.parse(userService.getLoggedUser());
+        angular.forEach(articulos , function(articulo) {
+
+            var promise = $http({
+              method: 'GET',
+              url: configUrl +'/mobileServe.asmx/addItem?pIdArt='+articulo.id_Articulo+'&pCant=1&pIdMesa='+mesaId+'&pIdMozo='+user.id_Cajero+'&pIdRelated=0&pTipo=0&pDetalle=&pImporte=0&pDescFree=&pHappyHour='+(articulo.removeHappy || false)
+            });    
+            promises.push(promise);
+        });
+
+        $q.all(promises).then(function (success){
             defer.resolve(success.data);
           },function (error){
             defer.reject({});
           });
         return defer.promise;
+
+      /*  
+        $http({
+            method: 'POST',
+            url: configUrl +'/mobileServe.asmx/addItem?pIdArt='++'&pCant='++'&pIdMeza='++'&pIdMozo='++'&pIdRelated=""&pTipo=""&pDetalle=""&pImporte=""&pDescFree=""';
+          }).then(function (success){
+            defer.resolve(success.data);
+          },function (error){
+            defer.reject({});
+          });
+        return defer.promise;*/
       }
       
       var setZona = function(zona){

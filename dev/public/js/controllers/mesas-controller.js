@@ -26,8 +26,6 @@
 			})
 			
 		});
-		$scope.buscando = false;
-		$scope.currentPedido=[];
 
 		$scope.verMesa = function(index){
 			$state.go('detail',{id :index});
